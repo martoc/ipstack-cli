@@ -12,9 +12,10 @@ import (
 func init() {
 	getCoordinates.Flags().StringP("access-key", "a", "", "Access key")
 	getCoordinates.Flags().StringP("ip", "p", ".", "IP address")
+
 	defaultVal := os.Getenv("ACCESS_KEY")
 	if defaultVal != "" {
-		getCoordinates.Flags().Set("access-key", defaultVal)
+		getCoordinates.Flags().Set("access-key", defaultVal) //nolint:errcheck
 	}
 }
 
