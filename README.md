@@ -6,12 +6,26 @@
 
 # ipstack-cli
 
-When ipstack-cli and Conventional Commits are used together, they create a powerful system for version control and release management. 
-Developers follow the Conventional Commits format when making changes, and the commit messages provide valuable information about 
-the nature of the changes.
+A simple CLI to get information about an IP address using the [ipstack](https://ipstack.com/) API.
 
-A tool that integrates both ipstack-cli and Conventional Commits can automate the process of determining the appropriate version number 
-based on the commit history. It can analyze the types of commits (features, fixes, etc.) and determine the appropriate version bump 
-(MAJOR, MINOR, PATCH) based on the nature of the changes. The tool can also consider breaking changes and pre-release information.
+## Installation
+
+### Go
+
+```sh
+go install github.com/martoc/ipstack-cli@latest
+```
+
+### Docker
+
+```sh
+docker run --rm martoc/ipstack-cli:latest
+```
+
+## Usage
+
+```sh
+ipstack-cli -h
+```
 
 [Documentation >>](./docs/index.md)
