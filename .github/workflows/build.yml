@@ -18,7 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 50
+          fetch-depth: 10
           fetch-tags: true
       - name: Setup Go
         uses: actions/setup-go@v4

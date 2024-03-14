@@ -7,11 +7,13 @@ import (
 	"github.com/martoc/ipstack-cli/core"
 	"github.com/martoc/ipstack-cli/logger"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 func init() {
 	getCoordinates.Flags().StringP("access-key", "a", "", "Access key")
 	getCoordinates.Flags().StringP("ip", "p", ".", "IP address")
+	viper.BindEnv("access-key", "ACCESS_KEY") //nolint:errcheck
 }
 
 var getCoordinates = &cobra.Command{
@@ -24,6 +26,7 @@ var getCoordinates = &cobra.Command{
 		result, err := (&core.GetCoordinatesCommandBuilder{}).SetContext(cmd.Context()).SetIP(ip).SetAccessKey(accessKey).Build().Execute()
 		if err != nil {
 			logger.GetInstance().Error(err)
+			fmt.Fprintln(os.Stderr, err.Error())
 			os.Exit(1)
 		}
 		fmt.Fprintln(os.Stdout, result)
