@@ -7,13 +7,15 @@ import (
 	"github.com/martoc/ipstack-cli/core"
 	"github.com/martoc/ipstack-cli/logger"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
 func init() {
 	getCoordinates.Flags().StringP("access-key", "a", "", "Access key")
 	getCoordinates.Flags().StringP("ip", "p", ".", "IP address")
-	viper.BindEnv("access-key", "ACCESS_KEY") //nolint:errcheck
+	defaultVal := os.Getenv("ACCESS_KEY")
+	if defaultVal != "" {
+		getCoordinates.Flags().Set("access-key", defaultVal)
+	}
 }
 
 var getCoordinates = &cobra.Command{

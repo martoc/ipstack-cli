@@ -29,7 +29,10 @@ ipstack-cli -h
 ```
 
 ```sh
-ACCESS_KEY=<from https://ipstack.com/dashboard>
-docker run --rm martoc/ipstack-cli:latest --ip "10.0.0.0"
+export ACCESS_KEY=<from https://ipstack.com/dashboard>
+
+docker run -it -e ACCESS_KEY=$ACCESS_KEY martoc/ipstack-cli:latest --ip "10.0.0.0"
+
+docker run -it martoc/ipstack-cli:latest --ip "10.0.0.0" --access-key $ACCESS_KEY
 ```
 [Documentation >>](./docs/index.md)
