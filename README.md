@@ -28,4 +28,8 @@ docker run --rm martoc/ipstack-cli:latest
 ipstack-cli -h
 ```
 
+```sh
+ACCESS_KEY=<from https://ipstack.com/dashboard>
+docker run --rm martoc/ipstack-cli:latest --ip "10.0.0.0"
+```
 [Documentation >>](./docs/index.md)
