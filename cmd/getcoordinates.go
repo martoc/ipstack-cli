@@ -23,7 +23,7 @@ var getCoordinates = &cobra.Command{
 	Use:   "get-coordinates",
 	Short: "Get coordinates from an IP address",
 	Long:  `Get coordinates from an IP address`,
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(cmd *cobra.Command, _ []string) {
 		ip, _ := cmd.Flags().GetString("ip")
 		accessKey, _ := cmd.Flags().GetString("access-key")
 		result, err := (&core.GetCoordinatesCommandBuilder{}).SetContext(cmd.Context()).SetIP(ip).SetAccessKey(accessKey).Build().Execute()

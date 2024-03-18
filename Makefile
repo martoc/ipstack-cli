@@ -4,6 +4,7 @@ BIN_NAME := $(shell basename `pwd`)
 PACKAGES = ./...
 TARGET := ./target
 GOPATH := $(shell go env GOPATH)
+GOOS := $(shell go env GOOS)
 BIN_VERSION := $(shell echo $$TAG_VERSION)
 ifeq ($(strip $(BIN_VERSION)),)
 BIN_VERSION := 1.0.0
@@ -23,17 +24,27 @@ init: install ## Installing binaries
 	go version
 	git submodule update --init --recursive
 
-.PHONY: build
-build: check lint ## Build the binary
-	@echo "==> Building..."
+.PHONY: test
+test: ## Run tests
 	@mkdir -p $(TARGET)
 	go test -coverprofile=$(TARGET)/coverage.out $(PACKAGES)
 	go tool cover -html=$(TARGET)/coverage.out -o $(TARGET)/coverage.html
-	CGO_ENABLED=0 go build -ldflags " \
-				-X github.com/martoc/$(BIN_NAME)/cmd.CLIVersion=$(BIN_VERSION) \
-				" \
-			-o $(TARGET)/$(BIN_NAME) main.go
-	chmod 755 $(TARGET)/$(BIN_NAME)
+
+.PHONY: build
+build: clean check lint test ## Cross platform build the binary
+	@echo "==> Building..."
+	@mkdir -p $(TARGET)/builds
+	for GOOS in linux darwin; do \
+		for GOARCH in arm64 amd64; do \
+			GOOS=$$GOOS GOARCH=$$GOARCH CGO_ENABLED=0 go build -ldflags " \
+					-X github.com/martoc/$(BIN_NAME)/cmd.CLIVersion=$(BIN_VERSION) \
+					-X github.com/martoc/$(BIN_NAME)/cmd.CLIOs=$$GOOS \
+					-X github.com/martoc/$(BIN_NAME)/cmd.CLIArch=$$GOARCH \
+					" \
+					-o $(TARGET)/builds/$(BIN_NAME)-$$GOOS-$$GOARCH main.go ; \
+			chmod 755 $(TARGET)/builds/$(BIN_NAME)-$$GOOS-$$GOARCH ; \
+		done ; \
+	done
 
 .PHONY: run-integration-tests
 run-integration-tests: ## Run integration tests
@@ -60,7 +71,7 @@ generate: ## Run source code generation
 .PHONY: install
 install: ## Install development dependencies
 	@echo "==> Installing dependencies..."
-	go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.54.0
+	go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.56.2
 	go install github.com/golang/mock/mockgen@v1.6.0
 	go install mvdan.cc/gofumpt@v0.6.0
 	go install golang.org/x/tools/cmd/godoc@v0.12.0
@@ -75,3 +86,8 @@ check: ## Run checks
 	@echo "==> Running checks..."
 	go mod verify
 	go vet -all $(PACKAGES)
+
+.PHONY: local-docker-build
+local-docker-build: ## Build the docker image
+	@echo "==> Building docker image..."
+	docker build --build-arg TARGETOS=linux -t $(BIN_NAME):latest .
