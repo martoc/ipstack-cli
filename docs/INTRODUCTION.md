@@ -8,6 +8,6 @@ This is the introduction to the project. It should be a brief overview of the pr
 
 * **Customized User Experiences:** Enhancing user experiences by delivering personalized content or features based on the location of your website visitors. For example, displaying localized content such as language preferences, currency options, or relevant local events or news. By providing tailored experiences, you can improve engagement, satisfaction, and retention among your audience.
 
-## Usage
+## Usage
 
 This CLI can be used by pipelines however the `adapter` package can be used to integrate the ipstack API into your Go application.
