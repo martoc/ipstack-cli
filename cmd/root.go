@@ -14,8 +14,8 @@ func init() {
 
 var rootCmd = &cobra.Command{
 	Use:   "ipstack-cli",
-	Short: "Generates and tag git repositories based on semantic versions based and conventional commits",
-	Long:  `Generates and tag git repositories based on semantic versions based and conventional commits`,
+	Short: "Interacts with the IPStack API",
+	Long:  `Interacts with the IPStack API`,
 }
 
 func Execute() {
