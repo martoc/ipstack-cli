@@ -16,6 +16,12 @@ A simple CLI to get information about an IP address using the [ipstack](https://
 go install github.com/martoc/ipstack-cli@latest
 ```
 
+### Docker
+
+```sh
+docker pull martoc/ipstack-cli:latest
+```
+
 ## Usage
 
 ### Go installation
