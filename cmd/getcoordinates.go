@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 
@@ -32,6 +33,10 @@ var getCoordinates = &cobra.Command{
 			fmt.Fprintln(os.Stderr, err.Error())
 			os.Exit(1)
 		}
-		fmt.Fprintln(os.Stdout, result)
+		formattedResult, err := json.MarshalIndent(result, "", "  ")
+		if err != nil {
+			logger.GetInstance().Error(err)
+		}
+		fmt.Fprintln(os.Stdout, formattedResult)
 	},
 }
