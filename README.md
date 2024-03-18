@@ -6,7 +6,7 @@
 
 # ipstack-cli
 
-A simple CLI to get information about an IP address using the [ipstack](https://ipstack.com/) API.
+A simple CLI to get coordinates given an IP address using the [IPStack API](https://ipstack.com/).
 
 ## Installation
 
@@ -24,10 +24,16 @@ docker pull martoc/ipstack-cli:latest
 
 ## Usage
 
-### Go installation
+### Go
 
 ```sh
-ipstack-cli -h
+export ACCESS_KEY=<from https://ipstack.com/dashboard>
+
+ipstack-cli get-coordinates --ip "10.0.0.0"
+
+# Or
+
+ipstack-cli get-coordinates --ip "10.0.0.0" --access-token $ACCESS_KEY
 ```
 
 ### Docker
@@ -36,6 +42,8 @@ ipstack-cli -h
 export ACCESS_KEY=<from https://ipstack.com/dashboard>
 
 docker run -it -e ACCESS_KEY=$ACCESS_KEY martoc/ipstack-cli:latest get-coordinates --ip "10.0.0.0"
+
+# Or
 
 docker run -it martoc/ipstack-cli:latest get-coordinates --ip "10.0.0.0" --access-key $ACCESS_KEY
 ```
