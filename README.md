@@ -16,17 +16,15 @@ A simple CLI to get information about an IP address using the [ipstack](https://
 go install github.com/martoc/ipstack-cli@latest
 ```
 
-### Docker
-
-```sh
-docker run --rm martoc/ipstack-cli:latest
-```
-
 ## Usage
+
+### Go installation
 
 ```sh
 ipstack-cli -h
 ```
+
+### Docker
 
 ```sh
 export ACCESS_KEY=<from https://ipstack.com/dashboard>
@@ -35,4 +33,5 @@ docker run -it -e ACCESS_KEY=$ACCESS_KEY martoc/ipstack-cli:latest get-coordinat
 
 docker run -it martoc/ipstack-cli:latest get-coordinates --ip "10.0.0.0" --access-key $ACCESS_KEY
 ```
+
 [Documentation >>](./docs/index.md)
