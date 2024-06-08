@@ -38,7 +38,7 @@ jobs:
           export ACCESS_KEY=${{ secrets.ACCESS_KEY }}
           make run-integration-tests
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           file: target/coverage.out
         env:
