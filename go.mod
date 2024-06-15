@@ -2,7 +2,7 @@ module github.com/martoc/ipstack-cli
 
 go 1.21
 
-require github.com/spf13/cobra v1.8.0
+require github.com/spf13/cobra v1.8.1
 
 require (
 	github.com/kr/pretty v0.3.1 // indirect
